@@ -8,4 +8,5 @@ The command `:WCGoal n` sets a word count goal of _n_.  The goal updates every t
 
 ## TODO
 
+- [ ] Use `echo()` rather than popups to sidestep Vim-Neovim incompatibilities.
 - [ ] Maybe allow for negative goals, for when you've got to trim things down a bit.

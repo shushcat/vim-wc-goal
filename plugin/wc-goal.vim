@@ -67,4 +67,4 @@ function! WCGoal(...)
 	endif
 endfunction
 
-command! -nargs=? WCGoal call WCGoal(<f-args>)
+command -nargs=? WCGoal call WCGoal(<f-args>)
