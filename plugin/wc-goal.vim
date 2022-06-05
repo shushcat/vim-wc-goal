@@ -34,35 +34,47 @@ function! s:close_popup()
 		endif
 endfunction
 
+function! s:update_popup(remaining)
+	call s:show_goal(a:remaining)
+endfunction
+
+function! s:create_augroup()
+	augroup WCGoal
+		autocmd CursorHoldI * call WCGoal()
+		autocmd CursorHold * call WCGoal()
+		autocmd BufEnter * call s:show_goal()
+		autocmd BufLeave * call s:close_popup()
+	augroup END
+endfunction
+
+function! s:remove_augroup()
+	augroup WCGoal | au! | augroup END
+endfunction
+
 function! WCGoal(...)
+	if !exists('b:wc_goal')
+		call s:create_augroup()
+	endif
 	if a:0 == 1
 		let l:count = a:1
 		if l:count > 0
 			let b:wc_goal = l:count + wordcount()["words"]
-		elseif l:count < 0
-			if exists('b:wc_goal')
-				let b:wc_goal = b:wc_goal + l:count
-			endif
+		elseif l:count < 0 && exists('b:wc_goal')
+			let b:wc_goal = b:wc_goal + l:count
 		elseif l:count == 0
 			unlet b:wc_goal
 			call s:close_popup()
-			augroup WCGoal | au! | augroup END
+			call s:remove_augroup()
 		endif
 	endif
 	if exists('b:wc_goal')
 		let l:remaining = s:words_remaining()
 		if l:remaining > 0
-			call s:show_goal(l:remaining)
-			augroup WCGoal
-				autocmd CursorHoldI * call WCGoal()
-				autocmd CursorHold * call WCGoal()
-				autocmd BufEnter * call s:show_goal()
-				autocmd BufLeave * call s:close_popup()
-			augroup END
+			call s:update_popup(l:remaining)
 		else
 			call s:close_popup()
 			unlet b:wc_goal
-			augroup WCGoal | au! | augroup END
+			call s:remove_augroup()
 		endif
 	endif
 endfunction
