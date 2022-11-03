@@ -10,5 +10,5 @@ The goal updates every time Vim notices a period of inactivity equal to its inte
 
 ## Demonstration
 
-![](http://johnob.sdf.org/resources/wc-goal_demo.gif)
+![](http://johnob.sdf.org/resources/wc-goal_demo.webm)
 
