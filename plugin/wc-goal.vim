@@ -40,6 +40,7 @@ endfunction
 
 function! s:create_augroup()
 	augroup WCGoal
+		au!
 		autocmd CursorHoldI * call WCGoal()
 		autocmd CursorHold * call WCGoal()
 		autocmd BufEnter * call s:show_goal()
