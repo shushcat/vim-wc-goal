@@ -14,7 +14,7 @@ function! s:show_goal(...)
 		else
 			let l:remaining = s:words_remaining()
 		endif
-		let l:report_str = "Goal: " . string(l:remaining) . " words."
+		let l:report_str = " Goal: " . string(l:remaining) . " words. "
 		call s:close_popup()
 		let b:wc_goal_pop_id = popup_create(l:report_str, #{
 			\ pos: 'topright',
